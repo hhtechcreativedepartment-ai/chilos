@@ -704,6 +704,29 @@ body.menu-page-v3 .payment-details legend {
   margin-bottom: 4px;
 }
 
+/* Generic payment card styles (ensure clear selected state across pages) */
+.payment-card {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  padding: 14px;
+  background: #ffffff;
+  border: 1.5px solid rgba(22, 7, 4, 0.12);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+.payment-card:hover { transform: translateY(-2px); }
+.payment-card.active {
+  background: #fff4ea;
+  border-color: #b86b3d;
+  box-shadow: 0 6px 18px rgba(183,107,61,0.08);
+}
+.payment-card .payment-card-icon { font-size: 1.6rem; }
+
+/* Ensure hidden attribute hides card form everywhere */
+[data-card-details][hidden] { display: none !important; }
+
 body.menu-page-v3 .payment-details label {
   display: grid;
   gap: 4px;
@@ -800,6 +823,51 @@ body.menu-page-v3 .checkout-button:disabled {
   }
 }
 
+/* Accessibility tweaks: remove solid full-shape fills and improve visibility */
+body.menu-page-v3 .ordering-shell,
+body.menu-page-v3 .deal-card-v3,
+body.menu-page-v3 .menu-main-panel,
+body.menu-page-v3 .cart-panel-v3,
+body.menu-page-v3 .food-card-v3,
+body.menu-page-v3 .voucher-box,
+body.menu-page-v3 .cart-line-v3,
+body.menu-page-v3 .payment-card {
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(22, 7, 4, 0.12) !important;
+  box-shadow: 0 8px 30px rgba(22,7,4,0.08);
+  backdrop-filter: blur(6px);
+}
+
+body.menu-page-v3 .menu-search input,
+body.menu-page-v3 .checkout-form-v3 input,
+body.menu-page-v3 .checkout-form-v3 select,
+body.menu-page-v3 .checkout-form-v3 textarea,
+body.menu-page-v3 .voucher-box input,
+body.menu-page-v3 .category-card {
+  background: rgba(255,255,255,0.04) !important;
+  color: #160704 !important;
+}
+
+/* Make key text and controls more legible */
+body.menu-page-v3,
+body.menu-page-v3 .offers-copy,
+body.menu-page-v3 .menu-topbar,
+body.menu-page-v3 .cart-topline,
+body.menu-page-v3 .food-card-body {
+  color: #160704 !important;
+}
+
+/* Ensure buttons remain visible */
+body.menu-page-v3 .deal-card-v3 button,
+body.menu-page-v3 .carousel-control,
+body.menu-page-v3 .food-card-actions button,
+body.menu-page-v3 .voucher-box button,
+body.menu-page-v3 .cart-line-actions button {
+  background: #ffffff !important;
+  color: #1f0703 !important;
+}
+
+
 @media (max-width: 720px) {
   body.menu-page-v3 .ordering-shell,
   body.menu-page-v3 .menu-app-shell {
@@ -888,6 +956,12 @@ body.cursor-ready {
   cursor: none;
 }
 
+/* Hide the native/system cursor globally so only the custom cursor is visible */
+* { cursor: none !important; }
+html, body { cursor: none !important; }
+/* Also explicitly remove default cursor styles from common interactive elements */
+a, button, input, select, textarea, .tab, .solid-button, .ghost-button { cursor: none !important; }
+
 body {
   color: var(--white);
   background:
@@ -954,7 +1028,7 @@ main,
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 60;
+  z-index: 999999 !important;
   pointer-events: none;
   border-radius: 50%;
   opacity: 0;
@@ -5503,9 +5577,26 @@ body .google-map-frame {
   width: 100%;
   height: 100%;
   border: 0;
-  filter: invert(90%) hue-rotate(175deg) saturate(0.75) contrast(1.02) brightness(0.62);
+  /* Allow the embedded Google map to render normally for better visibility */
+  filter: none !important;
+  opacity: 1 !important;
   transform: scale(1.01);
   transform-origin: center;
+}
+
+/* Map visibility tweaks: remove dark/red overlay and let iframe show clearly */
+body .google-location-map {
+  background: transparent !important;
+}
+
+body .google-location-map::before {
+  display: none !important;
+}
+
+/* Ensure pins and legend remain visible above the iframe */
+body .google-location-map .map-legend,
+body .google-location-map .map-pin {
+  z-index: 3;
 }
 
 body .google-location-map .map-legend,
@@ -6364,20 +6455,14 @@ body .site-footer .brand {
 body.order-page {
   cursor: auto;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 82% 6%, rgba(251, 195, 160, 0.16), transparent 24rem),
-    radial-gradient(circle at 14% 20%, rgba(127, 87, 46, 0.28), transparent 28rem),
-    linear-gradient(180deg, #0d0100 0%, #160704 42%, #0d0100 100%);
+  background: #fffdf7 !important;
 }
 
 body.order-page::before,
-body.order-page::after,
-body.order-page .cursor-dot,
-body.order-page .cursor-ring {
+body.order-page::before,
+body.order-page::after {
   display: none;
 }
-
-.order-header {
   position: sticky;
   top: 16px;
   z-index: 20;
@@ -6908,6 +6993,13 @@ body.menu-page-v3 .ordering-shell {
   background: rgba(255, 255, 255, 0.94) !important;
   border-color: rgba(127, 87, 46, 0.14) !important;
   border-radius: 18px !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+}
+
+body.menu-page-v3 .ordering-nav {
+  justify-content: flex-end !important;
+  gap: clamp(22px, 2.2vw, 34px) !important;
+  padding-right: clamp(12px, 2vw, 28px) !important;
 }
 
 body.menu-page-v3 .ordering-brand span,
@@ -6956,7 +7048,7 @@ body.menu-page-v3 .offers-carousel {
   grid-auto-flow: column !important;
   grid-auto-columns: minmax(320px, 85%) !important;
   gap: 16px !important;
-  overflow-x: auto !important;
+  overflow-x: hidden !important;
   scroll-snap-type: x mandatory !important;
   padding: 4px 2px 16px !important;
   scrollbar-width: none !important;
@@ -7019,7 +7111,7 @@ body.menu-page-v3 .deal-card-v3 img {
   align-self: center !important;
   width: 160px !important;
   height: 140px !important;
-  object-fit: contain !important;
+  object-fit: cover !important;
   filter: none !important;
 }
 
@@ -8052,6 +8144,46 @@ body.menu-page-v3 .track-card {
   padding: 16px !important;
 }
 
+/* Branch modal and store list spacing improvements */
+.branch-modal {
+  width: min(1100px, 96%);
+  max-width: 1100px;
+  padding: 18px;
+  border-radius: 10px;
+}
+.branch-modal .branch-form {
+  display: grid;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+.branch-modal label { width: 100%; }
+.branch-modal [data-branch-search] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(127,87,46,0.08);
+}
+.branch-actions { display: flex; gap: 8px; }
+.branch-results { margin-top: 12px; }
+.branch-modal .store-list { max-height: 420px; }
+
+body.menu-page-v3 .store-card {
+  padding: 12px 14px !important;
+  gap: 12px !important;
+  align-items: center !important;
+}
+body.menu-page-v3 .store-card .select-branch,
+body.menu-page-v3 .store-card .select-branch.button,
+body.menu-page-v3 .store-card .solid-button.select-branch {
+  align-self: center !important;
+  justify-self: end !important;
+  padding: 10px 16px !important;
+  border-radius: 8px !important;
+}
+
+/* Reduce oversized heading gap in modal */
+.branch-modal h2 { margin: 0 0 6px 0; font-size: 1.6rem; }
+
 body.menu-page-v3 .track-card strong {
   font-size: 1.12rem !important;
 }
@@ -8220,6 +8352,36 @@ body.order-page-v2::after {
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
+
+/* Keep header shape: position branch display absolutely so it doesn't change layout */
+.ordering-branch {
+  position: absolute;
+  left: 84px; /* sits to the right of the logo without affecting the header grid */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.ordering-branch-info strong {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--order-ink);
+}
+
+.ordering-branch-info small {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(13,1,0,0.6);
+}
+
+@media (max-width: 760px) {
+  .ordering-branch { left: 70px; }
+}
+
 
 .ordering-nav {
   display: flex;
@@ -8866,6 +9028,107 @@ body.order-page-v2::after {
   background: transparent;
 }
 
+/* Redesigned Authentication Modal - Minimal, professional, balanced */
+.auth-modal .auth-grid {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #ffffff, #fffaf8);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 18px 48px rgba(13,1,0,0.14);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+  color: #0d0100;
+  position: relative;
+}
+
+.auth-modal .modal-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  background: transparent;
+  border: 1px solid rgba(13,1,0,0.08);
+  color: #0d0100;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.auth-modal form {
+  background: transparent;
+  padding: 6px 4px;
+  display: grid;
+  gap: 12px;
+}
+
+.auth-modal h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.auth-modal p { margin: 0 0 12px 0; color: rgba(13,1,0,0.6); font-size: 0.95rem; }
+
+.auth-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+}
+
+.auth-fields-grid label { display: block; font-size: 0.85rem; color: rgba(13,1,0,0.8); }
+.auth-fields-grid input,
+.auth-fields-grid select,
+.auth-modal input,
+.auth-modal select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(13,1,0,0.08);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none;
+  font-size: 0.95rem;
+  color: #0d0100;
+}
+
+.auth-modal input::placeholder { color: rgba(13,1,0,0.35); }
+
+.auth-modal .solid-button { padding: 12px 16px; border-radius: 8px; font-weight: 700; }
+.auth-modal .ghost-mini { padding: 10px 14px; border-radius: 8px; }
+
+.auth-modal .solid-button[type="submit"] {
+  background: #111111;
+  color: #fff;
+  border: 0;
+}
+
+.auth-modal .ghost-mini[type="button"] {
+  background: transparent;
+  border: 1px solid rgba(13,1,0,0.08);
+  color: #0d0100;
+}
+
+/* Right column sign-in layout */
+.auth-modal form[data-signin-form] {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.auth-modal form[data-signin-form] input { width: 100%; }
+
+/* Balance spacing for desktop vs mobile */
+@media (max-width: 820px) {
+  .auth-modal .auth-grid { grid-template-columns: 1fr; padding: 16px; }
+  .auth-fields-grid { grid-template-columns: 1fr; }
+  .auth-modal .modal-close { right: 12px; top: 12px; }
+}
+
+/* Reduce heading size inside modal so it feels professional */
+.account-popup-top h2, .auth-modal h2 { font-size: 1.125rem; }
+
 .product-modal::backdrop,
 .auth-modal::backdrop,
 .account-modal::backdrop,
@@ -8874,6 +9137,10 @@ body.order-page-v2::after {
   background: rgba(13, 1, 0, 0.55);
   backdrop-filter: blur(8px);
 }
+
+/* Ensure dialog backdrops sit below the custom cursor */
+dialog::backdrop { z-index: 99990 !important; }
+dialog { z-index: 99991 !important; }
 
 .product-config {
   position: relative;
@@ -9450,6 +9717,309 @@ body.menu-page-v3 .deal-theme-4 .deal-media {
   justify-items: end !important;
 }
 
+body.menu-page-v3 .deal-card-v3 {
+  display: block !important;
+  padding: 0 !important;
+  background: #160704 !important;
+}
+
+body.menu-page-v3 .deal-card-v3::before,
+body.menu-page-v3 .deal-card-v3::after,
+body.menu-page-v3 .deal-card-v3 .deal-copy,
+body.menu-page-v3 .deal-card-v3 .deal-code {
+  display: none !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Final wide banner ad carousel. */
+body.menu-page-v3 .offer-carousel-shell {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 12px !important;
+  width: min(1180px, 100%) !important;
+  margin: 0 auto !important;
+}
+
+body.menu-page-v3 .offer-carousel-shell .carousel-control {
+  display: none !important;
+}
+
+body.menu-page-v3 .offers-carousel {
+  display: block !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  border-radius: 12px !important;
+  box-shadow: 0 22px 52px rgba(113, 24, 24, 0.14) !important;
+  scroll-snap-type: x mandatory !important;
+  scrollbar-width: none !important;
+}
+
+body.menu-page-v3 .offers-carousel::-webkit-scrollbar {
+  display: none !important;
+}
+
+body.menu-page-v3 .deal-card-v3 {
+  display: none !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  aspect-ratio: 3264 / 1245 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #711818 !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  scroll-snap-align: start !important;
+}
+
+body.menu-page-v3 .deal-card-v3.active {
+  display: block !important;
+}
+
+body.menu-page-v3 .deal-card-v3::before,
+body.menu-page-v3 .deal-card-v3::after,
+body.menu-page-v3 .deal-card-v3 .deal-copy,
+body.menu-page-v3 .deal-card-v3 .deal-code {
+  display: none !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  background: #711818 !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 0 !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+body.menu-page-v3 .offer-dots {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 9px !important;
+  min-height: 18px !important;
+}
+
+body.menu-page-v3 .offer-dot {
+  width: 8px !important;
+  height: 8px !important;
+  padding: 0 !important;
+  background: rgba(113, 24, 24, 0.28) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  cursor: pointer !important;
+  transition: width 180ms ease, background 180ms ease !important;
+}
+
+body.menu-page-v3 .offer-dot.active {
+  width: 24px !important;
+  background: var(--gallos-maroon) !important;
+}
+
+/* Banner-style offer carousel: one polished promo at a time, not tiled poster cards. */
+body.menu-page-v3 .offers-hero {
+  margin-bottom: 32px !important;
+}
+
+body.menu-page-v3 .offer-carousel-shell {
+  grid-template-columns: 46px minmax(0, 1fr) 46px !important;
+  gap: 18px !important;
+  align-items: center !important;
+}
+
+body.menu-page-v3 .offers-carousel {
+  grid-auto-columns: minmax(760px, 100%) !important;
+  gap: 20px !important;
+  padding: 0 !important;
+  scroll-padding-inline: 0 !important;
+}
+
+body.menu-page-v3 .deal-card-v3 {
+  display: grid !important;
+  grid-template-columns: minmax(330px, 0.9fr) minmax(420px, 1.1fr) !important;
+  gap: 0 !important;
+  min-height: 292px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(234, 155, 33, 0.18), transparent 20rem),
+    linear-gradient(135deg, #220a08 0%, #711818 54%, #8e523b 100%) !important;
+  border: 1px solid rgba(142, 82, 59, 0.18) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 22px 54px rgba(113, 24, 24, 0.14) !important;
+}
+
+body.menu-page-v3 .deal-card-v3::before,
+body.menu-page-v3 .deal-card-v3::after,
+body.menu-page-v3 .deal-card-v3 .deal-code {
+  display: none !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-copy {
+  position: relative !important;
+  z-index: 2 !important;
+  display: grid !important;
+  align-content: center !important;
+  justify-items: start !important;
+  gap: 14px !important;
+  min-width: 0 !important;
+  padding: clamp(28px, 4vw, 52px) !important;
+  color: #ffffff !important;
+}
+
+body.menu-page-v3 .deal-card-v3 span {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 30px !important;
+  padding: 0 12px !important;
+  color: #711818 !important;
+  background: #fff8f2 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  font-size: 0.76rem !important;
+  font-weight: 950 !important;
+}
+
+body.menu-page-v3 .deal-card-v3 h3 {
+  max-width: 8.5ch !important;
+  margin: 0 !important;
+  color: #ffffff !important;
+  font-family: var(--display) !important;
+  font-size: clamp(2.5rem, 4.2vw, 4.2rem) !important;
+  font-weight: 950 !important;
+  line-height: 0.86 !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase !important;
+}
+
+body.menu-page-v3 .deal-card-v3 p {
+  max-width: 28ch !important;
+  margin: 0 !important;
+  color: rgba(255, 255, 255, 0.86) !important;
+  font-size: 1rem !important;
+  line-height: 1.45 !important;
+}
+
+body.menu-page-v3 .deal-card-v3 button {
+  min-height: 44px !important;
+  padding: 0 20px !important;
+  color: #711818 !important;
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  font-size: 0.78rem !important;
+  font-weight: 950 !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 1 !important;
+  display: grid !important;
+  place-items: stretch !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 292px !important;
+  padding: 12px !important;
+  background:
+    linear-gradient(90deg, rgba(34, 10, 8, 0.58), transparent 28%),
+    rgba(255, 248, 242, 0.08) !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 268px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 12px !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+body.menu-page-v3 .carousel-control {
+  width: 46px !important;
+  height: 46px !important;
+}
+
+@media (max-width: 900px) {
+  body.menu-page-v3 .offer-carousel-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.menu-page-v3 .offers-carousel {
+    display: flex !important;
+    gap: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  body.menu-page-v3 .deal-card-v3 {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    display: block !important;
+    min-height: 260px !important;
+    aspect-ratio: 16 / 10 !important;
+    scroll-snap-align: start !important;
+  }
+
+  body.menu-page-v3 .deal-card-v3 .deal-copy {
+    display: none !important;
+  }
+
+  body.menu-page-v3 .deal-card-v3 .deal-media {
+    position: absolute !important;
+    inset: 0 !important;
+    min-height: 230px !important;
+    padding: 0 !important;
+    background: #160704 !important;
+  }
+
+  body.menu-page-v3 .deal-card-v3 .deal-media img {
+    min-height: 100% !important;
+    border-radius: 0 !important;
+  }
+}
+
 @media (max-width: 720px) {
   body .site-header .brand-logo,
   body.menu-page-v3 .ordering-brand-logo {
@@ -9557,6 +10127,21 @@ body:not(.menu-page-v3) .section-off .table-wrap {
   box-shadow: 0 18px 42px rgba(113, 24, 24, 0.1) !important;
 }
 
+body:not(.menu-page-v3) .section-off .table-wrap th {
+  color: var(--gallos-maroon) !important;
+  border-bottom-color: rgba(142, 82, 59, 0.18) !important;
+}
+
+body:not(.menu-page-v3) .section-off .table-wrap td {
+  color: var(--gallos-muted-light) !important;
+  border-bottom-color: rgba(142, 82, 59, 0.12) !important;
+}
+
+body:not(.menu-page-v3) .section-off .table-wrap td:first-child {
+  color: var(--gallos-ink) !important;
+  font-weight: 800 !important;
+}
+
 body:not(.menu-page-v3) .solid-button,
 body:not(.menu-page-v3) .pill-button,
 body:not(.menu-page-v3) .postcode button,
@@ -9586,6 +10171,50 @@ body:not(.menu-page-v3) .text-link {
   border-color: rgba(142, 82, 59, 0.24) !important;
 }
 
+body:not(.menu-page-v3) .franchise-copy ul,
+body:not(.menu-page-v3) .contact-copy dl {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+body:not(.menu-page-v3) .franchise-copy li {
+  padding-left: 0 !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  border-left: 0 !important;
+}
+
+body:not(.menu-page-v3) .story-step::before {
+  display: none !important;
+}
+
+body:not(.menu-page-v3) .story-step span {
+  display: inline !important;
+  width: auto !important;
+  color: var(--gallos-gold) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body:not(.menu-page-v3) .mini-actions a,
+body:not(.menu-page-v3) .text-link,
+body:not(.menu-page-v3) .text-link.invert {
+  color: var(--gallos-maroon) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(142, 82, 59, 0.24) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+body:not(.menu-page-v3) .locations .text-link,
+body:not(.menu-page-v3) .locations .text-link.invert,
+body:not(.menu-page-v3) .location-card .mini-actions a {
+  color: var(--gallos-white) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.38) !important;
+}
+
 body:not(.menu-page-v3) .tab.active,
 body:not(.menu-page-v3) .tab:hover {
   color: var(--gallos-white) !important;
@@ -9601,13 +10230,18 @@ body:not(.menu-page-v3) textarea {
   border-color: rgba(142, 82, 59, 0.28) !important;
 }
 
-body.menu-page-v3,
-body.order-page-v2 {
+body.menu-page-v3 {
   color: var(--gallos-ink) !important;
   background:
     radial-gradient(circle at 12% 6%, rgba(234, 155, 33, 0.18), transparent 24rem),
     radial-gradient(circle at 84% 0%, rgba(113, 24, 24, 0.08), transparent 30rem),
     var(--gallos-light-bg) !important;
+}
+
+/* Ordering pages use a solid light background */
+body.order-page-v2 {
+  color: var(--gallos-ink) !important;
+  background: #fffdf7 !important;
 }
 
 body.menu-page-v3 .menu-main-panel,
@@ -9647,6 +10281,135 @@ body.menu-page-v3 .method-tab.active {
   border-color: var(--gallos-maroon) !important;
 }
 
+body.menu-page-v3 .profile-avatar,
+body.menu-page-v3 .profile-button.is-signed-in .profile-avatar-small {
+  display: inline-grid !important;
+  place-items: center !important;
+  color: var(--gallos-white) !important;
+  background: linear-gradient(135deg, var(--gallos-maroon), var(--gallos-clay)) !important;
+  border: 1px solid rgba(234, 155, 33, 0.24) !important;
+  box-shadow: 0 8px 18px rgba(113, 24, 24, 0.22) !important;
+}
+
+body.menu-page-v3 .profile-button.is-signed-in .profile-avatar-small {
+  width: 32px !important;
+  height: 32px !important;
+  flex: 0 0 32px !important;
+}
+
+body.menu-page-v3 .profile-icon {
+  width: 17px !important;
+  height: 17px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2.2 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* Final override: production wide banner ad carousel. */
+body.menu-page-v3 .offer-carousel-shell {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 12px !important;
+  width: min(1180px, 100%) !important;
+  margin: 0 auto !important;
+}
+
+body.menu-page-v3 .offer-carousel-shell .carousel-control {
+  display: none !important;
+}
+
+body.menu-page-v3 .offers-carousel {
+  display: block !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  border-radius: 12px !important;
+  box-shadow: 0 22px 52px rgba(113, 24, 24, 0.14) !important;
+  scroll-snap-type: x mandatory !important;
+  scrollbar-width: none !important;
+}
+
+body.menu-page-v3 .offers-carousel::-webkit-scrollbar {
+  display: none !important;
+}
+
+body.menu-page-v3 .deal-card-v3 {
+  display: none !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  aspect-ratio: 3264 / 1245 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #711818 !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  scroll-snap-align: start !important;
+}
+
+body.menu-page-v3 .deal-card-v3.active {
+  display: block !important;
+}
+
+body.menu-page-v3 .deal-card-v3::before,
+body.menu-page-v3 .deal-card-v3::after,
+body.menu-page-v3 .deal-card-v3 .deal-copy,
+body.menu-page-v3 .deal-card-v3 .deal-code {
+  display: none !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  background: #711818 !important;
+}
+
+body.menu-page-v3 .deal-card-v3 .deal-media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 0 !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+body.menu-page-v3 .offer-dots {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 9px !important;
+  min-height: 18px !important;
+}
+
+body.menu-page-v3 .offer-dot {
+  width: 8px !important;
+  height: 8px !important;
+  padding: 0 !important;
+  background: rgba(113, 24, 24, 0.28) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  cursor: pointer !important;
+  transition: width 180ms ease, background 180ms ease !important;
+}
+
+body.menu-page-v3 .offer-dot.active {
+  width: 24px !important;
+  background: var(--gallos-maroon) !important;
+}
+
 body.menu-page-v3 .food-card-v3,
 body.menu-page-v3 .cart-line-v3,
 body.menu-page-v3 .voucher-box,
@@ -9672,4 +10435,322 @@ body.menu-page-v3 .food-card-actions .add-quick {
   color: var(--gallos-white) !important;
   background: var(--gallos-maroon) !important;
   border-color: var(--gallos-maroon) !important;
+}
+
+/* Strong final override: enforce light ordering theme for `order-page-v2` */
+body.order-page-v2,
+body.order-page.order-page-v2,
+body.order-page-v2.menu-page-v3,
+body.order-page.order-page-v2.menu-page-v3 {
+  --bg-main: var(--order-bg, #fffdf7);
+  --panel-bg: var(--order-soft, #ffffff);
+  --panel-border: rgba(127, 87, 46, 0.16);
+  --ink: var(--order-ink, #0d0100);
+  background: var(--bg-main) !important;
+  color: var(--ink) !important;
+}
+
+body.order-page-v2 .menu-main-panel,
+body.order-page-v2 .cart-panel-v3,
+body.order-page-v2 .deal-card-v3,
+body.order-page-v2 .food-card-v3,
+body.order-page-v2 .voucher-box,
+body.order-page-v2 .payment-details,
+body.order-page-v2 .payment-card,
+body.order-page-v2 .category-card {
+  background: var(--panel-bg) !important;
+  color: var(--ink) !important;
+  border-color: var(--panel-border) !important;
+  box-shadow: 0 18px 44px rgba(57,35,25,0.06) !important;
+}
+
+body.order-page-v2 input,
+body.order-page-v2 select,
+body.order-page-v2 textarea,
+body.order-page-v2 .category-card,
+body.order-page-v2 .category-card small {
+  background: #fffaf6 !important;
+  color: var(--order-bronze, #7f572e) !important;
+}
+
+body.order-page-v2 .solid-button,
+body.order-page-v2 .ghost-button,
+body.order-page-v2 .ghost-mini,
+body.order-page-v2 .deal-card-v3 button {
+  background: #ffffff !important;
+  color: var(--ink) !important;
+  border-color: rgba(127,87,46,0.18) !important;
+}
+
+.ordering-branch-info strong { color: var(--order-ink) !important; }
+.ordering-branch-info small { color: rgba(13,1,0,0.6) !important; }
+
+/* Ensure any map overlays are not darkened on order pages */
+body.order-page-v2 .google-location-map::before,
+body.order-page-v2 .google-location-map {
+  background: transparent !important;
+}
+
+body.order-page-v2.dialog-open {
+  overflow: hidden !important;
+}
+
+body.order-page-v2,
+body.order-page-v2 *,
+body.order-page-v2 a,
+body.order-page-v2 button,
+body.order-page-v2 input,
+body.order-page-v2 select,
+body.order-page-v2 textarea,
+body.order-page-v2 label,
+body.order-page-v2 dialog,
+body.order-page-v2 dialog * {
+  cursor: none !important;
+}
+
+body.order-page-v2 .cursor-dot,
+body.order-page-v2 .cursor-ring {
+  z-index: 2147483647 !important;
+  pointer-events: none !important;
+}
+
+body.order-page-v2 dialog {
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+}
+
+@media (max-width: 720px) {
+  body.menu-page-v3 .food-card-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    align-items: center !important;
+  }
+
+  body.menu-page-v3 .food-card-actions button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Native cursor is restored only inside popup/modal surfaces for usability. */
+dialog,
+dialog *,
+[role="dialog"],
+[role="dialog"] *,
+[aria-modal="true"],
+[aria-modal="true"] *,
+.modal,
+.modal *,
+.popup,
+.popup *,
+.dialog,
+.dialog *,
+.product-modal,
+.product-modal *,
+.auth-modal,
+.auth-modal *,
+.account-modal,
+.account-modal *,
+.account-popup,
+.account-popup *,
+.branch-modal,
+.branch-modal *,
+.order-confirmation,
+.order-confirmation *,
+.profile-modal,
+.profile-modal *,
+.mobile-panel,
+.mobile-panel * {
+  cursor: auto !important;
+}
+
+dialog input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+dialog textarea,
+[role="dialog"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+[role="dialog"] textarea,
+[aria-modal="true"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+[aria-modal="true"] textarea,
+.modal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.modal textarea,
+.popup input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.popup textarea,
+.dialog input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.dialog textarea,
+.auth-modal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.auth-modal textarea,
+.product-modal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.product-modal textarea,
+.account-modal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.account-modal textarea,
+.branch-modal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.branch-modal textarea,
+.order-confirmation input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.order-confirmation textarea,
+.mobile-panel input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+.mobile-panel textarea {
+  cursor: text !important;
+}
+
+dialog button,
+dialog a,
+dialog select,
+dialog label:has(input[type="checkbox"]),
+dialog label:has(input[type="radio"]),
+dialog input[type="checkbox"],
+dialog input[type="radio"],
+[role="dialog"] button,
+[role="dialog"] a,
+[role="dialog"] select,
+[role="dialog"] label:has(input[type="checkbox"]),
+[role="dialog"] label:has(input[type="radio"]),
+[role="dialog"] input[type="checkbox"],
+[role="dialog"] input[type="radio"],
+[aria-modal="true"] button,
+[aria-modal="true"] a,
+[aria-modal="true"] select,
+[aria-modal="true"] label:has(input[type="checkbox"]),
+[aria-modal="true"] label:has(input[type="radio"]),
+[aria-modal="true"] input[type="checkbox"],
+[aria-modal="true"] input[type="radio"],
+.modal button,
+.modal a,
+.modal select,
+.modal label:has(input[type="checkbox"]),
+.modal label:has(input[type="radio"]),
+.modal input[type="checkbox"],
+.modal input[type="radio"],
+.popup button,
+.popup a,
+.popup select,
+.popup label:has(input[type="checkbox"]),
+.popup label:has(input[type="radio"]),
+.popup input[type="checkbox"],
+.popup input[type="radio"],
+.dialog button,
+.dialog a,
+.dialog select,
+.dialog label:has(input[type="checkbox"]),
+.dialog label:has(input[type="radio"]),
+.dialog input[type="checkbox"],
+.dialog input[type="radio"],
+.product-modal button,
+.product-modal a,
+.product-modal select,
+.product-modal label:has(input[type="checkbox"]),
+.product-modal label:has(input[type="radio"]),
+.product-modal input[type="checkbox"],
+.product-modal input[type="radio"],
+.auth-modal button,
+.auth-modal a,
+.auth-modal select,
+.auth-modal label:has(input[type="checkbox"]),
+.auth-modal label:has(input[type="radio"]),
+.auth-modal input[type="checkbox"],
+.auth-modal input[type="radio"],
+.account-modal button,
+.account-modal a,
+.account-modal select,
+.account-modal label:has(input[type="checkbox"]),
+.account-modal label:has(input[type="radio"]),
+.account-modal input[type="checkbox"],
+.account-modal input[type="radio"],
+.branch-modal button,
+.branch-modal a,
+.branch-modal select,
+.branch-modal label:has(input[type="checkbox"]),
+.branch-modal label:has(input[type="radio"]),
+.branch-modal input[type="checkbox"],
+.branch-modal input[type="radio"],
+.order-confirmation button,
+.order-confirmation a,
+.order-confirmation select,
+.order-confirmation label:has(input[type="checkbox"]),
+.order-confirmation label:has(input[type="radio"]),
+.order-confirmation input[type="checkbox"],
+.order-confirmation input[type="radio"],
+.mobile-panel button,
+.mobile-panel a,
+.mobile-panel select,
+.mobile-panel label:has(input[type="checkbox"]),
+.mobile-panel label:has(input[type="radio"]),
+.mobile-panel input[type="checkbox"],
+.mobile-panel input[type="radio"] {
+  cursor: pointer !important;
+}
+
+body.order-page-v2 dialog,
+body.order-page-v2 dialog *,
+body.order-page-v2 [role="dialog"],
+body.order-page-v2 [role="dialog"] *,
+body.order-page-v2 [aria-modal="true"],
+body.order-page-v2 [aria-modal="true"] *,
+body.order-page-v2 .modal,
+body.order-page-v2 .modal *,
+body.order-page-v2 .popup,
+body.order-page-v2 .popup *,
+body.order-page-v2 .dialog,
+body.order-page-v2 .dialog * {
+  cursor: auto !important;
+}
+
+body.order-page-v2 dialog input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+body.order-page-v2 dialog textarea,
+body.order-page-v2 [role="dialog"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+body.order-page-v2 [role="dialog"] textarea,
+body.order-page-v2 [aria-modal="true"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+body.order-page-v2 [aria-modal="true"] textarea,
+body.order-page-v2 .modal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+body.order-page-v2 .modal textarea,
+body.order-page-v2 .popup input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+body.order-page-v2 .popup textarea,
+body.order-page-v2 .dialog input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+body.order-page-v2 .dialog textarea {
+  cursor: text !important;
+}
+
+body.order-page-v2 dialog button,
+body.order-page-v2 dialog a,
+body.order-page-v2 dialog select,
+body.order-page-v2 dialog label:has(input[type="checkbox"]),
+body.order-page-v2 dialog label:has(input[type="radio"]),
+body.order-page-v2 dialog input[type="checkbox"],
+body.order-page-v2 dialog input[type="radio"],
+body.order-page-v2 [role="dialog"] button,
+body.order-page-v2 [role="dialog"] a,
+body.order-page-v2 [role="dialog"] select,
+body.order-page-v2 [role="dialog"] label:has(input[type="checkbox"]),
+body.order-page-v2 [role="dialog"] label:has(input[type="radio"]),
+body.order-page-v2 [role="dialog"] input[type="checkbox"],
+body.order-page-v2 [role="dialog"] input[type="radio"],
+body.order-page-v2 [aria-modal="true"] button,
+body.order-page-v2 [aria-modal="true"] a,
+body.order-page-v2 [aria-modal="true"] select,
+body.order-page-v2 [aria-modal="true"] label:has(input[type="checkbox"]),
+body.order-page-v2 [aria-modal="true"] label:has(input[type="radio"]),
+body.order-page-v2 [aria-modal="true"] input[type="checkbox"],
+body.order-page-v2 [aria-modal="true"] input[type="radio"],
+body.order-page-v2 .modal button,
+body.order-page-v2 .modal a,
+body.order-page-v2 .modal select,
+body.order-page-v2 .modal label:has(input[type="checkbox"]),
+body.order-page-v2 .modal label:has(input[type="radio"]),
+body.order-page-v2 .modal input[type="checkbox"],
+body.order-page-v2 .modal input[type="radio"],
+body.order-page-v2 .popup button,
+body.order-page-v2 .popup a,
+body.order-page-v2 .popup select,
+body.order-page-v2 .popup label:has(input[type="checkbox"]),
+body.order-page-v2 .popup label:has(input[type="radio"]),
+body.order-page-v2 .popup input[type="checkbox"],
+body.order-page-v2 .popup input[type="radio"],
+body.order-page-v2 .dialog button,
+body.order-page-v2 .dialog a,
+body.order-page-v2 .dialog select,
+body.order-page-v2 .dialog label:has(input[type="checkbox"]),
+body.order-page-v2 .dialog label:has(input[type="radio"]),
+body.order-page-v2 .dialog input[type="checkbox"],
+body.order-page-v2 .dialog input[type="radio"] {
+  cursor: pointer !important;
 }

@@ -3,37 +3,60 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Chilo's | Happiness in Every Bite</title>
+    <title>Gallos | Happiness in Every Bite</title>
     <meta
       name="description"
-      content="Bold burgers, loaded flavours, fresh ingredients, and serious street-food energy from Chilo's."
+      content="Bold burgers, loaded flavours, fresh ingredients, and serious street-food energy from Gallos."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="scroll-progress" data-scroll-progress></div>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-ring" data-cursor-ring></div>
+    <div class="motion-scene" aria-hidden="true">
+      <div class="scene-vignette"></div>
+      <div class="scene-camera" data-scene-camera>
+        <div class="scene-grid"></div>
+        <div class="light-orb orb-one"></div>
+        <div class="light-orb orb-two"></div>
+        <img class="motion-object object-burger" src="assets/single-stack-burger.png" loading="lazy" alt="" data-depth="0.55" data-drift="1" />
+        <img class="motion-object object-fries" src="assets/fries-dips-plate.png" loading="lazy" alt="" data-depth="0.82" data-drift="-1" />
+        <img class="motion-object object-wrap" src="assets/chicken-wrap.png" loading="lazy" alt="" data-depth="1.08" data-drift="1" />
+        <span class="motion-shard shard-one" data-depth="0.7" data-drift="-1"></span>
+        <span class="motion-shard shard-two" data-depth="1.2" data-drift="1"></span>
+        <span class="motion-shard shard-three" data-depth="0.95" data-drift="-1"></span>
+      </div>
+    </div>
     <header class="site-header" data-header>
-      <a class="pill-button order-link" href="#order">Order Now</a>
-      <a class="brand" href="#home" aria-label="Chilo's home">
-        <span>Chilo's</span>
-        <small>Happiness in every bite</small>
-      </a>
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#home">Home</a>
-        <a href="#about">About Us</a>
-        <a href="#story">Our Story</a>
-        <a href="#locations">Locations</a>
-        <a href="#contact">Contact</a>
-        <a href="#franchise">Franchise</a>
-        <a href="#allergens">Allergens</a>
-      </nav>
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="header-shell">
+        <a class="brand" href="index.html" aria-label="Gallos home">
+          <img class="brand-logo" src="assets/gallos-logo.png" alt="Gallo's Peri Peri" />
+        </a>
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="menu.html">Menu</a>
+          <a href="#locations">Locations</a>
+          <a href="#story">Our Story</a>
+          <a href="#franchise">Franchise</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+          <a class="solid-button order-link" href="menu.html">Order Now</a>
+          <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
     </header>
+    <button class="mobile-menu-fab" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
+      <span></span>
+      <span></span>
+    </button>
 
     <aside class="mobile-panel" data-mobile-panel aria-hidden="true">
-      <a href="#home">Home</a>
+      <a href="index.html">Home</a>
       <a href="#about">About Us</a>
       <a href="#story">Our Story</a>
       <a href="#locations">Locations</a>
@@ -41,76 +64,110 @@
       <a href="#franchise">Franchise</a>
       <a href="#allergens">Allergens</a>
       <div class="mobile-actions">
-        <a class="solid-button" href="#order">Order Now</a>
-        <a class="ghost-button" href="#menu">View Menu</a>
+        <a class="solid-button" href="menu.html">Order Now</a>
+        <a class="ghost-button" href="menu.html">View Menu</a>
       </div>
     </aside>
 
     <main id="home">
-      <section class="hero section-dark">
-        <div class="hero-glow"></div>
-        <div class="hero-media crop crop-hero reveal-scale" aria-hidden="true"></div>
-        <div class="hero-content">
+      <section class="hero section-dark motion-section luxury-hero" data-scene="hero">
+        <div class="hero-copy luxury-hero-copy">
+          <span class="hero-eyebrow">Made for real cravings</span>
           <h1 class="word-reveal" aria-label="Happiness in Every Bite">
             <span>Happiness</span>
-            <span>in Every Bite</span>
+            <span class="accent-line">in Every</span>
+            <span>Bite</span>
           </h1>
           <p>Bold burgers, loaded flavours, fresh ingredients, and unforgettable street-food energy.</p>
-          <div class="button-row">
-            <a class="solid-button" href="#order">Order Now</a>
-            <a class="ghost-button" href="#menu">View Our Menu</a>
+          <div class="button-row hero-actions">
+            <a class="solid-button" href="menu.html">Order Now</a>
+            <a class="ghost-button" href="menu.html">View Our Menu</a>
           </div>
-          <small>Freshly made. Flame-grilled. Built to satisfy.</small>
+          <small class="hero-note">Freshly made. Flame-grilled. Built to satisfy.</small>
+          <div class="hero-feature-row" aria-label="Gallos food features">
+            <article>
+              <span>01</span>
+              <strong>Fresh Ingredients</strong>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>Flame Grilled</strong>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>Premium Quality</strong>
+            </article>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Signature Gallos Burger">
+          <div class="hero-visual-frame">
+            <div class="hero-glow"></div>
+            <div class="hero-wheel" aria-hidden="true"></div>
+            <img
+              class="hero-media hero-photo reveal-scale"
+              src="assets/hero-exploded-burger.png"
+              alt="Exploded Gallos gourmet burger with fresh toppings"
+            />
+            <article class="hero-float-card product-float">
+              <strong>Signature Gallos Burger</strong>
+              <span>100% Beef, Hand Pressed, Grilled Fresh</span>
+              <b>£8.95</b>
+            </article>
+            <article class="hero-float-card proof-float">
+              <strong>Loved by Thousands</strong>
+              <span>Fresh orders, bold flavours, loyal cravings.</span>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section class="top-sellers section-peach" id="order">
+      <section class="top-sellers section-peach motion-section" id="order" data-scene="order">
         <div class="section-heading reveal">
           <h2>Our Top Sellers</h2>
           <p>Meet the favourites customers keep coming back for.</p>
         </div>
         <div class="seller-grid">
           <article class="product-card reveal">
-            <div class="crop crop-mad-angus product-image" aria-hidden="true"></div>
+            <img class="product-image product-photo" src="assets/premium-cheese-burger.png" loading="lazy" alt="Mad Angus burger" />
             <h3>Mad Angus</h3>
             <p>A bold beef burger stacked with fresh toppings, melted cheese, and signature sauce.</p>
           </article>
           <article class="product-card reveal">
-            <div class="crop crop-king-kong product-image" aria-hidden="true"></div>
+            <img class="product-image product-photo" src="assets/flame-bacon-burger.png" loading="lazy" alt="King Kong bacon cheeseburger" />
             <h3>King Kong</h3>
             <p>A big, flavour-packed burger made for serious appetites.</p>
           </article>
           <article class="product-card reveal">
-            <div class="crop crop-big-mama product-image" aria-hidden="true"></div>
+            <img class="product-image product-photo" src="assets/double-classic-burger.png" loading="lazy" alt="Big Mama classic burger" />
             <h3>Big Mama</h3>
             <p>Juicy, cheesy, loaded, and built for maximum satisfaction.</p>
           </article>
           <article class="product-card reveal">
-            <div class="crop crop-big-bang-card product-image" aria-hidden="true"></div>
+            <img class="product-image product-photo" src="assets/combo-burger-fries.png" loading="lazy" alt="The Big Bang burger and fries" />
             <h3>The Big Bang</h3>
             <p>A flavour fusion of chicken, beef, and turkey in one unforgettable burger.</p>
           </article>
         </div>
-        <a class="text-link reveal" href="#menu">Explore Full Menu</a>
+        <a class="text-link reveal" href="menu.html">Explore Full Menu</a>
       </section>
 
-      <section class="feature section-dark angled" id="featured">
-        <div class="feature-image crop crop-big-bang reveal-left" aria-hidden="true"></div>
+      <section class="feature section-dark angled motion-section" id="featured" data-scene="featured">
+        <img class="feature-image feature-photo reveal-left" src="assets/big-bang-exploded.png" loading="lazy" alt="Exploded Big Bang burger layers" />
         <div class="feature-copy reveal-right">
           <h2>The Big Bang</h2>
           <p>
             A powerful flavour fusion of chicken, beef, and turkey, stacked with fresh toppings and
-            Chilo's signature sauces. Big taste, bold layers, unforgettable bite.
+            Gallos signature sauces. Big taste, bold layers, unforgettable bite.
           </p>
-          <a class="pill-button" href="#order">Order The Big Bang</a>
+          <a class="pill-button" href="menu.html">Order The Big Bang</a>
         </div>
       </section>
 
-      <section class="about-split" id="about">
+      <section class="about-split motion-section" id="about" data-scene="about">
         <div class="split-copy section-peach reveal">
           <h2>About Us</h2>
           <p>
-            At Chilo's, food is our DNA. We create bold, flavour-packed meals using fresh ingredients,
+            At Gallos, food is our DNA. We create bold, flavour-packed meals using fresh ingredients,
             quality meats, and signature sauces that make every bite memorable.
           </p>
           <p>
@@ -119,10 +176,14 @@
           </p>
           <a class="text-link" href="#story">Learn More About Us</a>
         </div>
-        <div class="split-image crop crop-about reveal-mask" aria-label="Chilo's team and vehicle"></div>
+        <img
+          class="split-image about-photo reveal-mask"
+          src="assets/about-railblazers-tavern.jpeg"
+          alt="Restaurant interior with orange beams, booth seating, and warm neon lighting"
+        />
       </section>
 
-      <section class="promise section-dark">
+      <section class="promise section-dark motion-section" data-scene="promise">
         <div class="section-heading reveal">
           <h2>Made Fresh. Served Bold.</h2>
         </div>
@@ -145,20 +206,23 @@
         </div>
       </section>
 
-      <section class="drinks section-dark">
-        <div class="drink-image crop crop-drinks reveal-left" aria-hidden="true"></div>
+      <section class="drinks section-dark motion-section" data-scene="drinks">
+        <img
+          class="drink-image drink-photo reveal-left"
+          src="assets/drink-perfy-cans.png"
+          alt="Perfy soda cans with fresh fruit"
+        />
         <div class="drink-copy reveal-right">
-          <span class="background-word">Sip</span>
           <h2>Happiness in Every Sip</h2>
           <p>
-            Pair your burger with a refreshing Chilo's drink. From classic cola to fruity favourites,
+            Pair your burger with a refreshing Gallos drink. From classic cola to fruity favourites,
             every sip is made to match the flavour of your meal.
           </p>
-          <a class="pill-button" href="#menu">View Drinks</a>
+          <a class="pill-button" href="menu.html">View Drinks</a>
         </div>
       </section>
 
-      <section class="food about-split">
+      <section class="food about-split motion-section" data-scene="food">
         <div class="split-copy section-peach reveal">
           <h2>Our Food</h2>
           <p>
@@ -169,51 +233,71 @@
             Our beef is selected for quality, our chicken is marinated for flavour, and every burger is
             built to order with sauces, toppings, and textures that work together in every bite.
           </p>
-          <a class="text-link" href="#menu">Discover Our Menu</a>
+          <a class="text-link" href="menu.html">Discover Our Menu</a>
         </div>
-        <div class="split-image crop crop-food reveal-mask" aria-label="Customer eating a Chilo's burger"></div>
+        <img
+          class="split-image food-photo reveal-mask"
+          src="assets/our-food.jpg"
+          loading="lazy"
+          alt="Gallos burger, fries, and drink served on a wooden board"
+        />
       </section>
 
-      <section class="menu-preview section-off" id="menu">
-        <div class="section-heading reveal">
-          <h2>Menu Preview</h2>
-          <p>Choose your craving and see the Chilo's flavour line-up.</p>
-        </div>
-        <div class="tabs reveal" role="tablist" aria-label="Menu categories">
-          <button class="tab active" type="button" data-category="burgers">Burgers</button>
-          <button class="tab" type="button" data-category="chicken">Chicken</button>
-          <button class="tab" type="button" data-category="fries">Loaded Fries</button>
-          <button class="tab" type="button" data-category="sides">Sides</button>
-          <button class="tab" type="button" data-category="drinks">Drinks</button>
-          <button class="tab" type="button" data-category="desserts">Desserts</button>
-        </div>
-        <div class="menu-grid" data-menu-grid></div>
-        <div class="button-row centered reveal">
-          <a class="solid-button" href="#order">Order Online</a>
-          <a class="ghost-button dark" href="#menu">View Full Menu</a>
+      <section class="menu-preview section-off motion-section" id="menu" data-scene="menu">
+        <div class="menu-preview-inner">
+          <div class="section-heading reveal">
+            <h2>Menu Preview</h2>
+            <p>Choose your craving and see the Gallos flavour line-up.</p>
+          </div>
+          <div class="tabs reveal" role="tablist" aria-label="Menu categories">
+            <button class="tab active" type="button" data-category="burgers">Burgers</button>
+            <button class="tab" type="button" data-category="chicken">Chicken</button>
+            <button class="tab" type="button" data-category="fries">Loaded Fries</button>
+            <button class="tab" type="button" data-category="sides">Sides</button>
+            <button class="tab" type="button" data-category="drinks">Drinks</button>
+            <button class="tab" type="button" data-category="desserts">Desserts</button>
+          </div>
+          <div class="menu-grid" data-menu-grid></div>
+          <div class="button-row centered reveal">
+            <a class="ghost-button dark" href="menu.html">View Full Menu</a>
+          </div>
         </div>
       </section>
 
-      <section class="locations section-dark" id="locations">
-        <div class="location-map reveal">
-          <div class="map-pin pin-one"></div>
-          <div class="map-pin pin-two"></div>
-          <div class="map-pin pin-three"></div>
+      <section class="locations section-dark motion-section" id="locations" data-scene="locations">
+        <div class="location-map google-location-map reveal" aria-label="Google map showing UK franchise locations">
+          <iframe
+            class="google-map-frame"
+            title="Google Map of Gallos UK franchise locations"
+            src="https://www.google.com/maps?q=United%20Kingdom&z=5&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="map-pin map-pin-aberdeen"><span></span><b>Aberdeen</b></div>
+          <div class="map-pin map-pin-manchester"><span></span><b>Manchester</b></div>
+          <div class="map-pin map-pin-birmingham"><span></span><b>Birmingham</b></div>
+          <div class="map-pin map-pin-london"><span></span><b>London</b></div>
+          <div class="map-pin map-pin-cardiff"><span></span><b>Cardiff</b></div>
+          <div class="map-pin map-pin-belfast"><span></span><b>Belfast</b></div>
+          <div class="map-legend">
+            <strong>Franchise Network</strong>
+            <span>Live and upcoming Gallos locations across the UK</span>
+          </div>
         </div>
         <div class="location-copy reveal-right">
-          <h2>Find Your Nearest Chilo's</h2>
-          <p>Craving Chilo's? Find your nearest location and order your favourites today.</p>
+          <h2>Find Your Nearest Gallos</h2>
+          <p>Craving Gallos? Find your nearest location and order your favourites today.</p>
           <label class="postcode">
             <span>Postcode</span>
             <input type="text" placeholder="Enter postcode" />
             <button type="button">Find Us</button>
           </label>
           <article class="location-card">
-            <h3>Chilo's Aberdeen</h3>
+            <h3>Gallos Aberdeen</h3>
             <p>Union Street, Aberdeen</p>
             <p>Open daily: 11:00 - 23:00</p>
             <div class="mini-actions">
-              <a href="#order">Order</a>
+              <a href="menu.html">Order</a>
               <a href="#locations">Directions</a>
             </div>
           </article>
@@ -221,10 +305,10 @@
         </div>
       </section>
 
-      <section class="story section-peach" id="story">
+      <section class="story section-peach motion-section" id="story" data-scene="story">
         <div class="section-heading reveal">
           <h2>Our Story</h2>
-          <p>Chilo's was created with one simple idea: make food that brings happiness with every bite.</p>
+          <p>Gallos was created with one simple idea: make food that brings happiness with every bite.</p>
         </div>
         <div class="timeline">
           <article class="story-step reveal">
@@ -240,33 +324,45 @@
           <article class="story-step reveal">
             <span>03</span>
             <h3>The Future</h3>
-            <p>Quality, creativity, and customer experience at the centre of every new Chilo's move.</p>
+            <p>Quality, creativity, and customer experience at the centre of every new Gallos move.</p>
           </article>
         </div>
         <a class="text-link reveal" href="#story">Read Our Story</a>
       </section>
 
-      <section class="instagram section-dark">
+      <section class="instagram section-dark motion-section" data-scene="social">
         <div class="section-heading reveal">
           <h2>Follow Us</h2>
           <p>See the latest drops, loaded burgers, behind-the-scenes moments, and customer favourites.</p>
         </div>
         <div class="insta-grid">
-          <a class="crop insta insta-one reveal" href="#home" aria-label="View Instagram post"></a>
-          <a class="crop insta insta-two reveal" href="#home" aria-label="View Instagram post"></a>
-          <a class="crop insta insta-three reveal" href="#home" aria-label="View Instagram post"></a>
-          <a class="crop insta insta-four reveal" href="#home" aria-label="View Instagram post"></a>
-          <a class="crop insta insta-five reveal" href="#home" aria-label="View Instagram post"></a>
-          <a class="crop insta insta-six reveal" href="#home" aria-label="View Instagram post"></a>
+          <a class="insta social-tile tile-one reveal" href="#home" aria-label="View Instagram post">
+            <img src="assets/classic-close-burger.png" loading="lazy" alt="" />
+          </a>
+          <a class="insta social-tile tile-two reveal" href="#home" aria-label="View Instagram post">
+            <img src="assets/fries-dips-plate.png" loading="lazy" alt="" />
+          </a>
+          <a class="insta social-tile tile-three reveal" href="#home" aria-label="View Instagram post">
+            <img src="assets/loaded-chicken-burger.png" loading="lazy" alt="" />
+          </a>
+          <a class="insta social-tile tile-four reveal" href="#home" aria-label="View Instagram post">
+            <img src="assets/single-stack-burger.png" loading="lazy" alt="" />
+          </a>
+          <a class="insta social-tile tile-five reveal" href="#home" aria-label="View Instagram post">
+            <img src="assets/wraps-pair.png" loading="lazy" alt="" />
+          </a>
+          <a class="insta social-tile tile-six reveal" href="#home" aria-label="View Instagram post">
+            <img src="assets/burger-meal-combo.png" loading="lazy" alt="" />
+          </a>
         </div>
         <a class="pill-button reveal" href="#home">Follow on Instagram</a>
       </section>
 
-      <section class="franchise section-dark" id="franchise">
+      <section class="franchise section-dark motion-section" id="franchise" data-scene="franchise">
         <div class="franchise-copy reveal">
-          <h2>Bring Chilo's to Your City</h2>
+          <h2>Bring Gallos to Your City</h2>
           <p>
-            Interested in joining a bold, fast-growing food brand? Chilo's offers an exciting franchise
+            Interested in joining a bold, fast-growing food brand? Gallos offers an exciting franchise
             opportunity for passionate operators who want to serve high-quality food with a strong brand identity.
           </p>
           <ul>
@@ -286,7 +382,7 @@
         </form>
       </section>
 
-      <section class="allergens section-off" id="allergens">
+      <section class="allergens section-off motion-section" id="allergens" data-scene="allergens">
         <div class="section-heading reveal">
           <h2>Allergen Information</h2>
           <p>
@@ -312,7 +408,7 @@
             <tbody data-allergen-table>
               <tr><td>Mad Angus</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Ask team for sauce details</td></tr>
               <tr><td>Loaded Chicken Burger</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Available grilled on request</td></tr>
-              <tr><td>Chilo's Loaded Fries</td><td>No</td><td>Yes</td><td>Varies</td><td>May contain traces</td></tr>
+              <tr><td>Gallos Loaded Fries</td><td>No</td><td>Yes</td><td>Varies</td><td>May contain traces</td></tr>
               <tr><td>Signature Wings</td><td>Varies</td><td>No</td><td>No</td><td>Depends on sauce choice</td></tr>
             </tbody>
           </table>
@@ -320,7 +416,7 @@
         <p class="notice reveal">Please inform our team of any allergies before placing your order.</p>
       </section>
 
-      <section class="contact section-dark" id="contact">
+      <section class="contact section-dark motion-section" id="contact" data-scene="contact">
         <div class="contact-copy reveal">
           <h2>Get in Touch</h2>
           <p>
@@ -329,11 +425,11 @@
           </p>
           <dl>
             <dt>Email</dt>
-            <dd>hello@chilos.co.uk</dd>
+            <dd>hello@gallos.co.uk</dd>
             <dt>Phone</dt>
             <dd>01224 000 000</dd>
             <dt>Social</dt>
-            <dd>@chilosuk</dd>
+            <dd>@gallosuk</dd>
           </dl>
         </div>
         <form class="contact-form reveal-right">
@@ -354,8 +450,7 @@
 
     <footer class="site-footer">
       <a class="brand" href="#home">
-        <span>Chilo's</span>
-        <small>Happiness in every bite</small>
+        <img class="brand-logo footer-brand-logo" src="assets/gallos-logo.png" alt="Gallo's Peri Peri" />
       </a>
       <nav aria-label="Footer navigation">
         <a href="#home">Home</a>
@@ -366,7 +461,7 @@
         <a href="#franchise">Franchise</a>
         <a href="#allergens">Allergens</a>
       </nav>
-      <p>© Chilo's. All rights reserved.</p>
+      <p>© Gallos. All rights reserved.</p>
       <div class="legal">
         <a href="#home">Privacy Policy</a>
         <a href="#home">Terms & Conditions</a>
@@ -374,7 +469,7 @@
       </div>
     </footer>
 
-    <a class="mobile-order" href="#order">Order Now</a>
-    <script src="script.js"></script>
+    <a class="mobile-order" href="menu.html">Order Now</a>
+    <script src="script.js" defer></script>
   </body>
 </html>

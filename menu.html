@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gallos | Menu & Online Ordering</title>
+    <meta name="description" content="Browse Gallos offers, choose from the full menu, add food to your cart, and checkout for collection or delivery." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="order-page order-page-v2 menu-page-v3">
+    <div class="scroll-progress" data-scroll-progress></div>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-ring" data-cursor-ring></div>
+    <header class="ordering-shell">
+      <a class="ordering-brand" href="index.html" aria-label="Back to Gallos home">
+          <img class="brand-logo ordering-brand-logo" src="assets/gallos-logo.png" loading="lazy" alt="Gallo's Peri Peri" />
+      </a>
+      <div class="ordering-branch" aria-hidden="false">
+        <div class="ordering-branch-info">
+          <strong data-header-branch-name>Choose branch</strong>
+          <small data-header-branch-postcode></small>
+        </div>
+        <button class="ghost-mini" type="button" data-branch-open aria-label="Change branch">Search</button>
+      </div>
+      <nav class="ordering-nav" aria-label="Ordering navigation">
+        <a href="index.html">Home</a>
+        <a href="#offers">Offers</a>
+        <a href="#menu-board">Menu</a>
+      </nav>
+      <div class="ordering-actions">
+        <div class="profile-shell">
+          <button class="profile-button" type="button" data-profile-open aria-expanded="false" hidden>
+            <span>Profile</span>
+          </button>
+          <div class="profile-menu" data-profile-menu hidden>
+            <div class="profile-menu-summary">
+              <strong data-profile-summary-name>Guest</strong>
+              <small data-profile-summary-email>Sign in or sign up</small>
+            </div>
+            <button class="profile-menu-item" type="button" data-profile-action="profile">Profile</button>
+            <button class="profile-menu-item" type="button" data-profile-action="myaddress">My address</button>
+            <button class="profile-menu-item" type="button" data-profile-action="myorders">My orders</button>
+            <button class="profile-menu-item" type="button" data-profile-action="storelocations">Store locations</button>
+            <button class="profile-menu-item" type="button" data-profile-action="trackorders">Track Orders</button>
+            <button class="profile-menu-item" type="button" data-profile-action="contactus">Contact Us</button>
+            <button class="profile-menu-item" type="button" data-profile-action="privacy">Privacy Policy</button>
+            <button class="profile-menu-item" type="button" data-profile-action="terms">Terms & Conditions</button>
+            <button class="profile-menu-item" type="button" data-profile-action="logout">Logout</button>
+          </div>
+        </div>
+        <button type="button" class="ghost-mini" data-auth-open>Sign / Sign up</button>
+      </div>
+    </header>
+
+    <main class="menu-app-shell">
+      <dialog class="branch-modal" data-branch-modal aria-label="Choose your branch">
+        <form class="branch-form" data-branch-form>
+          <h2>Find your nearest Gallos</h2>
+          <label>Enter postcode or city
+            <input name="query" placeholder="e.g. Aberdeen, London, AB10" data-branch-search />
+          </label>
+          <div class="branch-actions">
+            <button class="ghost-mini" type="submit">Find Stores</button>
+            <button class="ghost-mini" type="button" data-branch-skip>View Full Menu</button>
+          </div>
+        </form>
+        <div class="branch-results" data-branch-list></div>
+      </dialog>
+      <section class="offers-hero" id="offers" aria-label="Special offers">
+        <div class="offer-carousel-shell">
+          <button class="carousel-control" type="button" data-offer-prev aria-label="Previous offer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+          </button>
+          <div class="offers-carousel" data-deals-carousel></div>
+          <button class="carousel-control" type="button" data-offer-next aria-label="Next offer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+          </button>
+          <div class="offer-dots" data-offer-dots aria-label="Offer carousel navigation"></div>
+        </div>
+      </section>
+
+      <section class="menu-order-layout" id="menu-board">
+        <div class="menu-main-panel">
+          <div class="menu-topbar">
+            <div>
+              <span>Complete Menu</span>
+              <h2>Choose from popular categories</h2>
+            </div>
+            <label class="menu-search">
+              <span>Search</span>
+              <input type="search" placeholder="Search burgers, pizza, drinks..." data-menu-search />
+            </label>
+          </div>
+
+          <div class="category-rail" data-category-rail></div>
+          <div class="menu-results" data-menu-results></div>
+        </div>
+
+        <aside class="cart-panel-v3" id="checkout" aria-label="Cart and checkout">
+          <div class="cart-topline">
+            <div>
+              <span>My Order</span>
+              <h2>Your Cart</h2>
+            </div>
+            <button type="button" data-clear-cart>Clear</button>
+          </div>
+
+          <div class="cart-context" data-cart-context>Collection · Gallos Aberdeen · ASAP - 20 min</div>
+          <div class="cart-items" data-cart-items>
+            <p class="empty-cart">Add food from the menu to start your order.</p>
+          </div>
+
+          <form class="voucher-box" data-voucher-form>
+            <label>
+              Voucher code
+              <input name="voucher" placeholder="WELCOME20" />
+            </label>
+            <button type="submit">Use now</button>
+            <p data-voucher-message></p>
+          </form>
+
+          <div class="cart-summary">
+            <div><span>Subtotal</span><strong data-subtotal>£0.00</strong></div>
+            <div><span>Delivery fee</span><strong data-delivery-fee>£0.00</strong></div>
+            <div><span>Service</span><strong data-service>£0.00</strong></div>
+            <div><span>Discount</span><strong data-discount>£0.00</strong></div>
+            <div><span>Total</span><strong data-total>£0.00</strong></div>
+          </div>
+
+          <div class="account-zone" data-account-zone hidden>
+            <div class="account-card">
+              <div class="account-card-top">
+                <h3 data-account-title>Profile</h3>
+                <button class="ghost-mini" type="button" data-account-edit>Edit profile</button>
+              </div>
+              <div class="account-body" data-account-body>
+                <p>Select a profile action from the profile menu.</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="checkout-form-v3" data-checkout-form>
+            <fieldset>
+              <legend>Checkout</legend>
+              <div class="method-tabs compact" role="tablist" aria-label="Choose order method">
+                <button class="method-tab active" type="button" data-method="collection">Collection</button>
+                <button class="method-tab" type="button" data-method="delivery">Delivery</button>
+              </div>
+
+              <div class="collection-details" data-collection-details>
+                <label>
+                  Branch / time
+                  <select data-collection-time>
+                    <option>ASAP - 20 min</option>
+                    <option>Today 12:30</option>
+                    <option>Today 13:00</option>
+                    <option>Today 18:30</option>
+                    <option>Today 20:00</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>Full name <input name="name" required placeholder="Your name" /></label>
+              <label>Mobile number <input name="phone" required placeholder="Mobile number" /></label>
+              <label>Email <input name="email" type="email" required placeholder="Email address" /></label>
+
+              <div class="delivery-details" data-delivery-details hidden>
+                <label>Delivery address <input name="address" placeholder="Street address" /></label>
+                <label>Postcode <input name="postcode" placeholder="Postcode" /></label>
+                <label>Delivery notes <textarea name="notes" rows="3" placeholder="Deliver instructions, allergies, or drop-off notes"></textarea></label>
+              </div>
+
+              <div class="payment-section">
+                <span>Payment</span>
+                <div class="payment-grid" data-payment-grid>
+                  <button type="button" class="payment-card" data-payment-method="card">
+                    <span class="payment-card-icon">💳</span>
+                    <strong>Debit / Credit</strong>
+                    <small>Pay by card</small>
+                  </button>
+                  <button type="button" class="payment-card active" data-payment-method="cash">
+                    <span class="payment-card-icon">💷</span>
+                    <strong>Cash</strong>
+                    <small>Pay with cash</small>
+                  </button>
+                </div>
+              </div>
+
+              <fieldset class="payment-details" data-card-details hidden>
+                <legend>Card details</legend>
+                <label>Cardholder name <input name="cardName" placeholder="Name on card" /></label>
+                <label>Card number <input name="cardNumber" inputmode="numeric" placeholder="**** **** **** ****" /></label>
+                <div class="card-grid">
+                  <label>Expiry <input name="cardExpiry" placeholder="MM/YY" /></label>
+                  <label>CVC <input name="cardCvc" inputmode="numeric" placeholder="123" /></label>
+                </div>
+              </fieldset>
+            </fieldset>
+            <button class="solid-button checkout-button" type="submit" data-checkout-button disabled>Order and checkout</button>
+          </form>
+        </aside>
+      </section>
+    </main>
+
+    <button class="mobile-basket-button" type="button" data-mobile-cart-open hidden>
+      Cart · <span data-mobile-total>£0.00</span>
+    </button>
+
+    <dialog class="product-modal" data-product-modal>
+      <form method="dialog" class="product-config" data-product-config>
+        <button class="modal-close" type="button" data-product-close>Close</button>
+          <img data-modal-image loading="lazy" alt="" />
+        <div class="product-config-body">
+          <span data-modal-tags></span>
+          <h2 data-modal-name></h2>
+          <p data-modal-desc></p>
+          <strong data-modal-price></strong>
+          <label>Size
+            <select name="size">
+              <option value="0">Regular</option>
+              <option value="1.5">Large +£1.50</option>
+              <option value="2.5">Loaded +£2.50</option>
+            </select>
+          </label>
+          <fieldset>
+            <legend>Add-ons</legend>
+            <label><input type="checkbox" name="addons" value="0.75" data-label="Add cheese" /> Add cheese +£0.75</label>
+            <label><input type="checkbox" name="addons" value="0.5" data-label="Extra sauce" /> Extra sauce +£0.50</label>
+            <label><input type="checkbox" name="addons" value="2.5" data-label="Fries and drink upgrade" /> Meal upgrade +£2.50</label>
+          </fieldset>
+          <label>Kitchen notes <textarea name="notes" rows="3" placeholder="Any special notes?"></textarea></label>
+          <div class="modal-quantity">
+            <button type="button" data-modal-minus>-</button>
+            <b data-modal-qty>1</b>
+            <button type="button" data-modal-plus>+</button>
+          </div>
+          <button class="solid-button" type="submit">Add to cart</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="auth-modal" data-auth-modal>
+      <div class="auth-grid">
+        <button class="modal-close" type="button" data-auth-close>Close</button>
+        <form data-signup-form>
+          <h2>Create Account</h2>
+          <p>Save order history, addresses, vouchers, favourites, and faster checkout.</p>
+          <div class="auth-fields-grid">
+            <label>First name <input name="firstName" placeholder="First name" required /></label>
+            <label>Last name <input name="lastName" placeholder="Last name" required /></label>
+            <label>Email <input name="email" type="email" placeholder="Email address" required /></label>
+            <label>Mobile <input name="mobile" placeholder="Mobile number" required /></label>
+            <label>Gender
+              <select name="gender" required>
+                <option value="">Select gender</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Non-binary</option>
+                <option>Prefer not to say</option>
+              </select>
+            </label>
+            <label>Date of birth <input name="dob" type="date" required /></label>
+            <label>Password <input name="password" type="password" placeholder="Password" required /></label>
+          </div>
+          <button class="solid-button" type="submit">Create Account</button>
+        </form>
+        <form data-signin-form>
+          <h2>Sign In</h2>
+          <input name="login" placeholder="Email or mobile number" required />
+          <input name="password" type="password" placeholder="Password" required />
+          <button class="solid-button" type="submit">Sign In</button>
+          <button class="ghost-mini" type="button" data-auth-guest>Continue as guest</button>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog class="account-modal" data-account-modal>
+      <div class="account-popup">
+        <button class="modal-close" type="button" data-account-close>Close</button>
+        <div class="account-popup-top">
+          <h2 data-account-modal-title>Profile</h2>
+          <button class="ghost-mini" type="button" data-account-modal-edit hidden>Edit profile</button>
+        </div>
+        <div class="account-popup-body" data-account-modal-body>
+          <p>Select a profile action from the profile menu.</p>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="order-confirmation" data-order-confirmation>
+      <div>
+        <span>Order Confirmed</span>
+        <h2>Thank you for ordering from Gallos.</h2>
+        <p data-confirmation-copy></p>
+        <button class="solid-button" type="button" data-close-confirmation>Back to menu</button>
+      </div>
+    </dialog>
+
+    <script src="order.js" defer></script>
+    <script src="cursor.js" defer></script>
+  </body>
+</html>
